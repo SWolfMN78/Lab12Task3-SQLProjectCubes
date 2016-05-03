@@ -18,18 +18,36 @@ public class SQLModel extends AbstractTableModel {
     SQLModel(ResultSet rs) {
         this.resultSet = rs;
         //get the number of rows from the resultset.
-        try {
-            numberOfRows = 0;
-            while (resultSet.next()) {
-                numberOfRows++;
-            }
-            resultSet.beforeFirst(); //this will reset the cursor.
 
+        countRows();
+
+        try {
             numberOfColumns = resultSet.getMetaData().getColumnCount();
         } catch (SQLException sqle) {
             System.out.println("Error setting up data model" + sqle);
         }
     }
+
+    protected void countRows() {
+
+        try {
+            resultSet.beforeFirst();
+
+            numberOfRows = 0;
+
+            while (resultSet.next()) {
+                System.out.println("count");
+                numberOfRows++;
+            }
+
+            resultSet.beforeFirst(); //this will reset the cursor.
+
+            System.out.println(numberOfRows);
+        } catch (SQLException sqle) {
+            sqle.printStackTrace();
+        }
+    }
+
     @Override
     public int getRowCount(){
         return numberOfRows;
