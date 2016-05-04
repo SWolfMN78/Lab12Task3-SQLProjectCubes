@@ -22,9 +22,14 @@ public class SQLGUI extends JFrame{
     private JButton btnUpdateSelection;
     private JTextField txtUpdateTime;
 
+    private SQLModel sqlm;
+
+
     Main main = new Main();
 
     protected SQLGUI(SQLModel sqlm){
+
+        this.sqlm = sqlm;
         setContentPane(rootPanel);
         setPreferredSize(new Dimension(650, 650));
         setSize(550, 450);
@@ -59,11 +64,15 @@ public class SQLGUI extends JFrame{
     }
     public void deleteStatement(){
         //here is a basic delete statement: delete from cubes where Rubiks_Solver = 'John';
-        String solverName = txtSolverName.getText(); //bas place holder 
+        String solverName = txtSolverName.getText(); //bas place holder
+        System.out.println(solverName);
         try{
+
             String prepStatDelete = "Delete from cubes where Rubiks_solver = ?";
             PreparedStatement psDelete = Main.conn.prepareStatement(prepStatDelete);
             psDelete.setString(1, solverName );//I can't figure out the next bit to this...maybe it's too late.
+            psDelete.execute();
+            Main.setTable();
         }catch (SQLException sqle){
             sqle.printStackTrace();
             System.out.println("Line couldn't be deleted.  Please check code and try again.");
@@ -95,7 +104,7 @@ public class SQLGUI extends JFrame{
         btnDeleteSelection.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                deleteStatement();
             }
         });
     }

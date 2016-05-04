@@ -5,9 +5,9 @@ import java.util.concurrent.SynchronousQueue;
 public class Main {
     static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
     static final String DB_CONNECTION_URL = "jdbc:mysql://localhost:3306/";
-    static final String DB_Name = "laptops";
+    static final String DB_Name = "cubes";   //todo change?
     static final String USER = "root";
-    static final String PASSWORD = "mySQLD0ggeh78!";
+    static final String PASSWORD = "YOUR PASSWORD WAS HERE";  //todo change
 
     static Statement statement = null;
     static Connection conn = null;
